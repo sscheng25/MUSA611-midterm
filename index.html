@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>US National Parks</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <link href="index.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <h1>Here is a header.</h1>
+    <fieldset id="park-filters">
+        <label for="type-select">NPS Type</label>
+        <select id="type-select" class="form-select">
+          <option value="">All</option>
+          <option>National Park</option>
+          <option>test</option>
+        </select>
+  
+        <label for="state-select">Zip Code</label>
+        <select id="state-select" class="form-select">
+          <option value="">All</option>
+        </select>
+    </fieldset>
+    <div id="map"></div>
+
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="index.js"></script>
+  </body>
+</html>
