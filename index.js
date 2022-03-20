@@ -70,7 +70,8 @@ let initializeTypeChoice = () => {
   });
 };
 
-console.log(parkList);
+//console.log(parkList);
+//console.log(nps);
 
 let filteredParks = () => {
   let typeValue = typeSelect.value;
