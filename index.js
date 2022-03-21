@@ -70,25 +70,41 @@ let initializeTypeChoice = () => {
   });
 };
 
-//console.log(parkList);
-//console.log(nps);
 
 let filteredParks = () => {
-  let typeValue = typeSelect.value;
-  let stateValue = stateSelect.value;
-  console.log(typeValue, stateValue);
-  
-  let parksToShow = allParks.features.filter((park) => park.properties.STATE === stateValue).filter((park) => park.properties.UNIT_TYPE === typeValue);
+  let typeValue = typeSelect.selectedOptions[0].label;;
+  let stateValue = stateSelect.selectedOptions[0].label;;
+  console.log('NEW SELECTION:', typeValue, stateValue);
+  let parksToShow = parkList;
+  if (stateValue !== 'All') {
+    parksToShow = parksToShow.features.filter((park) => park.properties.STATE === stateValue);
+    console.log('STATE SELECTED');
+  } else {
+    parksToShow = parksToShow.features;
+    console.log('ALL STATES.')
+  }
+  if (typeValue !== 'All') {
+    parksToShow = parksToShow.filter((park) => park.properties.UNIT_TYPE === typeValue);
+    console.log('TYPE SELECTED');
+  };
+
+  //parksToShow = parkList.features.filter((park) => park.properties.STATE === stateValue).filter((park) => park.properties.UNIT_TYPE === typeValue);
 
   parksToShow.forEach((park) => {
-    console.log(park.features.properties.UNIT_NAME);
+    console.log(park.properties.UNIT_NAME);
   });
+  return parksToShow;
 };
 
 
-/*
 let updateParkMarkers = (parksToShow) => {
   parkLayer.clearLayers();
+  L.geoJSON(parksToShow)
+  .bindTooltip(layer => {
+      let nam = layer.feature.properties.UNIT_NAME;
+      return `${nam}`;
+    })
+  .addTo(parkLayer);
 };
 
 
@@ -98,20 +114,16 @@ let handleSelectChange = () => {
     updateParkMarkers(parksToShow);
     //updateParkList(parksToShow);
   };
-  
+
+
 typeSelect.addEventListener('change', handleSelectChange);
 stateSelect.addEventListener('change', handleSelectChange);
-*/  
+  
 
-// initialization step for the web page.
+// initialization steps for the web page.
 let allParks;
 let url = 'https://opendata.arcgis.com/datasets/c8d60ffcbf5c4030a17762fe10e81c6a_2.geojson';
 getData(url, (data) => allParks = data)
-console.log(allParks);
 
 initializeTypeChoice();
 initializeStateChoice();
-
-filteredParks();  // wait to be deleted.
-//updateParkMarkers(parks);
-//updateParkList(parks);
