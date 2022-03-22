@@ -8,24 +8,51 @@
   </head>
 
   <body>
-    <h1>Here is a header.</h1>
-    <fieldset id="park-filters">
-        <label for="type-select">NPS Type</label>
-        <select id="type-select" class="form-select">
-          <option value="">All</option>
-        </select>
-  
-        <label for="state-select">State</label>
-        <select id="state-select" class="form-select">
-          <option value="">All</option>
-        </select>
-    </fieldset>
-    <div id="map"></div>
+    <div class="header">Here is a header.</div>
+    <div class="content">
+      <div class="section">Section 1</div>
 
+      <div class="map-container">
+        <fieldset id="park-filters">
+          <label for="type-select">NPS Type</label>
+          <select id="type-select" class="form-select">
+            <option value="">All</option>
+          </select>
+    
+          <label for="state-select">State</label>
+          <select id="state-select" class="form-select">
+            <option value="">All</option>
+          </select>
+        </fieldset>
+        <div class="map" id="map"></div>
+
+      </div>
+
+      <div class="slides">
+        <div class="slide">Slide 0</div>
+        <div class="slide">Slide 1</div>
+        <div class="slide">Slide 2</div>
+        <div class="slide">Slide 3</div>
+        <div class="slide">Slide 4</div>
+      </div>
+
+      <div class="section">Section 2</div>
+      <div class="slides">
+        <div class="slide">Slide 5</div>
+        <div class="slide">Slide 6</div>
+        <div class="slide">Slide 7</div>
+        <div class="slide">Slide 8</div>
+        <div class="slide">Slide 9</div>
+      </div>
+
+    </div>
+    <div class="footer"></div>
+    
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="tools.js"></script>
     <script src="data.js"></script>
+    <script src="slides.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

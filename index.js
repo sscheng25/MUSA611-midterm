@@ -92,7 +92,12 @@ let filteredParks = () => {
 
 let updateParkMarkers = (parksToShow) => {
   parkLayer.clearLayers();
-  L.geoJSON(parksToShow)
+  L.geoJSON(parksToShow, {
+    style: feature => {
+      let type = feature.properties.UNIT_TYPE;
+      return { color: parkColors[type] };
+    },
+  })
   .bindTooltip(layer => {
       let nam = layer.feature.properties.UNIT_NAME;
       return `${nam}`;
@@ -111,7 +116,48 @@ let handleSelectChange = () => {
 
 typeSelect.addEventListener('change', handleSelectChange);
 stateSelect.addEventListener('change', handleSelectChange);
+
+
+let slideIndex = 0;
+let getSlideIndex = () => {
+  document.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + window.innerHeight;
+    const slideDivs = document.getElementsByClassName('slide');
+    //console.log(`The current scroll position is ${scrollPos}.`);
   
+    
+    for (slideIndex = 0; slideIndex < slideDivs.length; slideIndex++) {
+      const slideDiv = slideDivs[slideIndex];
+      const slidePos = slideDiv.offsetTop;
+      //console.log(`The position of slide ${slideIndex} is ${slidePos}.`);
+      if (slidePos > scrollPos) {
+        slideIndex--;
+        break;
+      }
+    }
+    console.log(`The current slide is ${slideIndex}.`);
+
+    if (slideIndex === 0 ) {
+      let parksToShow = parkList;
+      updateParkMarkers(parksToShow);
+    };
+    if (slideIndex < 6 && slideIndex > 0) {
+      let typeValue = 'National Park';
+      let parksToShow = parkList.features.filter((park) => park.properties.UNIT_TYPE === typeValue);
+      updateParkMarkers(parksToShow);
+      map.flyTo([39.77, -96.94], 5);
+    };
+    if (slideIndex === 6) {
+      let nameValue = 'Grand Canyon National Park';
+      let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
+      updateParkMarkers(parksToShow);
+      map.flyTo([36.19, -112.23], 8);
+    };
+
+
+  })
+
+}
 
 // initialization steps for the web page.
 let allParks;
@@ -120,3 +166,50 @@ getData(url, (data) => allParks = data)
 
 initializeTypeChoice();
 initializeStateChoice();
+
+getSlideIndex();
+
+const parkColors = {
+  'National Historical Park': '#fd8d3c',
+  'Other Designation': '#f16913',
+  'National Battlefield Site': '#dadaeb',
+  'National Historic Site': '#bcbddc',
+  'National Park': '#9e9ac8',
+  'National Monument': '#807dba',
+  'National Memorial': '#6a51a3',
+  'National Recreation Area': '#54278f',
+  'International Historic Site': '#3f007d',
+  'National Scenic Riverway': '#7f2704',
+  'National Seashore': '#bdd7e7',
+  'National Preserve': '#6baed6',
+  'National Battlefield Park': '#3182bd',
+  'National Battlefield': '#08519c',
+  'Park': '#d94801',
+  'National Lakeshore': '#a63603',
+  'National River and Recreation Area': '#fcbba1',
+  'Wild and Scenic River': '#fc9272',
+  "National Scenic River": '#fb6a4a',
+  'National Parkway': '#ef3b2c',
+  'National Reserve': '#cb181d',
+  'National Historic Trail': '#66c2a4',
+  'Parkway': '#238b45',
+  'National Scenic Trail': '#67000d',
+  'Scenic and Recreational River': '#00441b',
+  'National Military Park': '#BDC667',
+  'Memorial': '#77966D',
+  'National Monument and Historic Shrine': '#626D58',
+  'National Recreation River': '#F991CC',
+  "National River": '#305252',
+  'Wild River': '#9ED0E6',
+  'Ecological and Historic Preserve': '#D6EFFF',
+  'National Historical Reserve': '#FED18C',
+  'National Park and Preserve': '#FED99B',
+};
+
+const visitorRank = {
+  "Great Smoky Mountains National Park": 14.1,
+  "Zion National Park": 5,
+  "Yellowstone National Park ": 4.9,
+  "Grand Canyon National Park": 4.5,
+  "Rocky Mountain National Park": 4.4,
+}
