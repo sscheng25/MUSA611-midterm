@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
   margin: 0;
-  padding: 1rem;
+  padding: 0rem;
   height: 100vh;
 }
 
@@ -11,7 +11,7 @@ body {
 .section,
 .map-container,
 .slides {
-  border: 1px solid red;
+  border: 0px solid red;
 }
 
 .header,
@@ -19,13 +19,28 @@ body {
 .section {
   height: 100vh;
 }
+.header {
+  background-image: url(../images/np_cover.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+.header-blank {
+  padding: 20vh;
+}
+.header-header {
+  text-align: center;
+  color: white;
+  background-color: darkseagreen;
+  padding: 2rem;
+}
 .slide {
-  border: 1px solid blue;
+  border: 1px solid rgb(67, 235, 193);
   width: 25rem;
   margin-left: auto;
   margin-right: 2rem;
   margin-bottom: 90vh;
-  background-color: darkkhaki;
+  background-color: darkseagreen;
   padding: 2rem;
 }
 
@@ -42,5 +57,40 @@ body {
 .map { 
   height: 95%; 
 }
-  
-  
+#section1 {
+  background-color: darkseagreen;
+}
+.sec1-header {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.sec1-content {
+  text-align: left;
+  margin-left: 4rem;
+  margin-right: 4rem;
+}
+.image-row {
+  display: flex;
+}
+
+.image-column {
+  flex: 33.33%;
+  padding: 5px;
+}
+.footer {
+  background-image: url(../images/np_footer.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+.footer-blank {
+  padding: 20vh;
+}
+.footer-header {
+  text-align: center;
+  color: white;
+  background-color: rgb(255, 149, 28);
+  padding: 2rem;
+}
