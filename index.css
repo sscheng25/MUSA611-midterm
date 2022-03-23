@@ -94,3 +94,7 @@ body {
   background-color: rgb(255, 149, 28);
   padding: 2rem;
 }
+.slide:last-child {
+  margin-bottom: 0;
+
+}

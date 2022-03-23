@@ -27,7 +27,7 @@ let getData = (url, cb) => {
 }
 
 let initializeStateChoice = () => {
-  fetch('https://opendata.arcgis.com/datasets/c8d60ffcbf5c4030a17762fe10e81c6a_2.geojson')
+  fetch(url)
   .then(response => response.json())
   .then(result => {
     let state_list = [];
@@ -44,7 +44,7 @@ let initializeStateChoice = () => {
 };
 
 let initializeTypeChoice = () => {
-  fetch('https://opendata.arcgis.com/datasets/c8d60ffcbf5c4030a17762fe10e81c6a_2.geojson')
+  fetch(url)
   .then(response => response.json())
   .then(result => {
     let type_list = [];
@@ -119,6 +119,7 @@ stateSelect.addEventListener('change', handleSelectChange);
 
 
 let slideIndex = 0;
+
 let getSlideIndex = () => {
   document.addEventListener('scroll', () => {
     const scrollPos = window.scrollY + window.innerHeight;
@@ -136,41 +137,48 @@ let getSlideIndex = () => {
       }
     }
     console.log(`The current slide is ${slideIndex}.`);
+    
+    
+    let oldIndex;
+    if (oldIndex !== slideIndex) {
+      if (slideIndex === 0 ) {
+        let parksToShow = parkList;
+        updateParkMarkers(parksToShow);
+      };
+      if (slideIndex < 5 && slideIndex > 0) {
+        let typeValue = 'National Park';
+        let parksToShow = parkList.features.filter((park) => park.properties.UNIT_TYPE === typeValue);
+        updateParkMarkers(parksToShow);
+        map.flyTo([39.77, -96.94], 5);
+      };
+      if (slideIndex === 5) {
+        let nameValue = 'Great Smoky Mountains National Park';
+        let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
+        updateParkMarkers(parksToShow);
+        map.flyTo([35.61, -83.50], 8);
+      };
+      if (slideIndex === 6) {
+        let nameValue = 'Zion National Park';
+        let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
+        updateParkMarkers(parksToShow);
+        map.flyTo([37.296, -113.02], 8);
+      };
+      if (slideIndex === 7) {
+        let nameValue = 'Yellowstone National Park';
+        let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
+        updateParkMarkers(parksToShow);
+        map.flyTo([44.686, -110.58], 8);
+      };
+      if (slideIndex === 8) {
+        let nameValue = 'Grand Canyon National Park';
+        let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
+        updateParkMarkers(parksToShow);
+        map.flyTo([36.19, -112.23], 8);
+      };
 
-    if (slideIndex === 0 ) {
-      let parksToShow = parkList;
-      updateParkMarkers(parksToShow);
-    };
-    if (slideIndex < 5 && slideIndex > 0) {
-      let typeValue = 'National Park';
-      let parksToShow = parkList.features.filter((park) => park.properties.UNIT_TYPE === typeValue);
-      updateParkMarkers(parksToShow);
-      map.flyTo([39.77, -96.94], 5);
-    };
-    if (slideIndex === 5) {
-      let nameValue = 'Great Smoky Mountains National Park';
-      let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
-      updateParkMarkers(parksToShow);
-      map.flyTo([35.61, -83.50], 8);
-    };
-    if (slideIndex === 6) {
-      let nameValue = 'Zion National Park';
-      let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
-      updateParkMarkers(parksToShow);
-      map.flyTo([37.296, -113.02], 8);
-    };
-    if (slideIndex === 7) {
-      let nameValue = 'Yellowstone National Park';
-      let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
-      updateParkMarkers(parksToShow);
-      map.flyTo([44.686, -110.58], 8);
-    };
-    if (slideIndex === 8) {
-      let nameValue = 'Grand Canyon National Park';
-      let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
-      updateParkMarkers(parksToShow);
-      map.flyTo([36.19, -112.23], 8);
-    };
+      oldIndex = slideIndex;
+    }
+
 
 
   })
@@ -179,6 +187,7 @@ let getSlideIndex = () => {
 
 // initialization steps for the web page.
 let allParks;
+let url2 = 'nps.geojson'
 let url = 'https://opendata.arcgis.com/datasets/c8d60ffcbf5c4030a17762fe10e81c6a_2.geojson';
 getData(url, (data) => allParks = data)
 
