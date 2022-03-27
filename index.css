@@ -108,3 +108,7 @@ body {
 .slide-special {
   font-style: italic;
 }
+#chart-container {
+  width: 100%;
+  height: 60%;
+}

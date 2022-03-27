@@ -1,4 +1,4 @@
-const map = L.map('map').setView([39.77, -96.94], 5);
+const map = L.map('map').setView([39.77, -96.94], 4.5);
 const parkLayer = L.layerGroup().addTo(map);
 
 /*
@@ -117,6 +117,21 @@ let handleSelectChange = () => {
 typeSelect.addEventListener('change', handleSelectChange);
 stateSelect.addEventListener('change', handleSelectChange);
 
+let updatePopUp = (parksToShow) => {
+  parkLayer.clearLayers();
+  L.geoJSON(parksToShow, {
+    style: feature => {
+      let type = feature.properties.UNIT_TYPE;
+      return { color: parkColors[type] };
+    },
+  })
+  .addTo(parkLayer)
+  .bindPopup(layer => {
+      let nam = layer.feature.properties.UNIT_NAME;
+      return `${nam}`;
+  })
+  .openPopup();
+}
 
 let slideIndex = 0;
 
@@ -149,47 +164,83 @@ let getSlideIndex = () => {
         let typeValue = 'National Park';
         let parksToShow = parkList.features.filter((park) => park.properties.UNIT_TYPE === typeValue);
         updateParkMarkers(parksToShow);
-        map.flyTo([39.77, -96.94], 5);
+        map.flyTo([39.77, -96.94], 4.5);
       };
       if (slideIndex === 4) {
         let nameValue = 'Independence National Historical Park';
         let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
         updateParkMarkers(parksToShow);
+        updatePopUp(parksToShow);
         map.flyTo([39.95, -75.1327], 12);
       };      
       if (slideIndex === 5) {
         let nameValue = 'Great Smoky Mountains National Park';
         let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
         updateParkMarkers(parksToShow);
+        updatePopUp(parksToShow);
         map.flyTo([35.61, -83.50], 10);
       };
       if (slideIndex === 6) {
         let nameValue = 'Zion National Park';
         let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
         updateParkMarkers(parksToShow);
+        updatePopUp(parksToShow);
         map.flyTo([37.296, -113.02], 10);
       };
       if (slideIndex === 7) {
         let nameValue = 'Yellowstone National Park';
         let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
         updateParkMarkers(parksToShow);
+        updatePopUp(parksToShow);
         map.flyTo([44.686, -110.58], 8);
       };
       if (slideIndex === 8) {
         let nameValue = 'Grand Canyon National Park';
         let parksToShow = parkList.features.filter((park) => park.properties.UNIT_NAME === nameValue);
         updateParkMarkers(parksToShow);
+        updatePopUp(parksToShow);
         map.flyTo([36.19, -112.23], 8);
       };
 
       oldIndex = slideIndex;
     }
 
-
-
   })
 
 }
+
+// bar chart
+anychart.onDocumentReady(function() {
+ 
+  // set the data
+  var data = {
+      header: ["Year", "Visitors"],
+      rows: [
+        ["2021", 297115406],
+        ["2020", 237064332],
+        ["2019", 327516619],
+        ["2018", 318211833],
+        ["2017", 330882751],
+        ["2016", 330971689],
+        ["2015", 307247252],
+        ["2014", 292800082],
+        ["2013", 273630895],
+        ["2012", 282765682],
+  ]};
+
+  // create the chart
+  var chart = anychart.bar();
+
+  // add the data
+  chart.data(data);
+
+  // set the chart title
+  chart.title("NPS Visitors by Year");
+
+  // draw
+  chart.container("chart-container");
+  chart.draw();
+});
 
 // initialization steps for the web page.
 let allParks;
@@ -207,7 +258,7 @@ const parkColors = {
   'Other Designation': '#f16913',
   'National Battlefield Site': '#dadaeb',
   'National Historic Site': '#bcbddc',
-  'National Park': '#9e9ac8',
+  'National Park': '#EF7C8E',
   'National Monument': '#807dba',
   'National Memorial': '#6a51a3',
   'National Recreation Area': '#54278f',
