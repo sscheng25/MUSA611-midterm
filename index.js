@@ -135,7 +135,7 @@ let updatePopUp = (parksToShow) => {
 
 let slideIndex = 0;
 
-let getSlideIndex = () => {
+let updateSlides = () => {
   document.addEventListener('scroll', () => {
     const scrollPos = window.scrollY + window.innerHeight;
     const slideDivs = document.getElementsByClassName('slide');
@@ -251,7 +251,7 @@ getData(url, (data) => allParks = data)
 initializeTypeChoice();
 initializeStateChoice();
 
-getSlideIndex();
+updateSlides();
 
 const parkColors = {
   'National Historical Park': '#fd8d3c',
