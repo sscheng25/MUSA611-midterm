@@ -112,3 +112,8 @@ body {
   width: 100%;
   height: 60%;
 }
+.citation {
+  bottom: 0px;
+  right: 5px;
+  color:white;
+}
